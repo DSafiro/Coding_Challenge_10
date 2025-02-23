@@ -18,3 +18,20 @@ console.log(prod1.getDetails()); // Produces expected output of "Product: Laptop
 
 prod1.updateStock(3); // Updates stock value by 3
 console.log(prod1.getDetails()); // Produces expected output of "Product: Laptop, ID: 101, Price: $1200, Stock: 7"
+
+// Task 2: Created Order Class
+class Order {
+    constructor (orderId, product, quantity) {
+        this.orderId = orderId; // Assigns order ID property
+        this.product = product; // Assigns product property
+        this.quantity = quantity; // Assigns quantity property
+        this.product.updateStock(this.quantity); // Updates stock when order is created
+    }; // Creates constructor for Order class
+    getOrderDetails() {
+        const totalPrice = this.product.price * this.quantity; // Declares a function that calculates total price
+        return `Order ID: ${this.orderId}, Product: ${this.product.name}, Quantity: ${this.quantity}, Total Price: $${totalPrice}`; // Returns order details in string format
+    }; // Method to output order details
+}; // Declares Order class with attributes
+const order1 = new Order(501, prod1, 2);
+console.log(order1.getOrderDetails()); // Produces expected output of "Order ID: 501, Product: Laptop, Quantity: 2, Total Price: $2400"
+console.log(prod1.getDetails()); // Produces expected output of "Product: Laptop, ID: 101, Price: $1200, Stock: 5" (Stock reduced)
