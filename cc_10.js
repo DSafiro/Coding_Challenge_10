@@ -40,6 +40,10 @@ console.log(prod1.getDetails()); // Produces expected output of "Product: Laptop
 class Inventory {
     constructor (products) {
         this.products = []; // Assigns products property as an array
+
+        // **** Part of Task 4: Implemented Order Management System **** //
+        this.orders = []; // Assigns order property as an array
+
     }; // Creates constructor for Inventory class
     addProduct(product) {
         return this.products.push(product); // Adds a product to products array
@@ -47,7 +51,24 @@ class Inventory {
     listProducts() {
         return this.products.forEach(product => {console.log(product.getDetails())}); // Returns product details from previous class and logs it
     }; // Method for logging all product details
+
+    // **** Part of Task 4: Implemented Order Management System **** //
+    placeOrder(orderId, product, quantity) {
+        if (product.stock >= quantity) { 
+            const newOrder = new Order (orderId, product, quantity); // Creates new order
+            this.orders.push(newOrder); // Adds new order to order array
+        }; // If stock is available -> Generates a new order
+    }; // Method that creates a new order if stock is available
+    listOrders() {
+        return this.orders.forEach(order => {console.log(order.getOrderDetails())}); // Returns order details and logs it
+    }; // Method to log all placed orders
+
 }; // Declares Inventory class with attributes
 const inventory = new Inventory();
 inventory.addProduct(prod1); // Adds product to inventory
 inventory.listProducts(); // Produces expected output of "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
+
+// Task 4: Implemented Order Management
+inventory.placeOrder(601, prod1, 2);
+inventory.listOrders(); // Produces expected output of "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
+console.log(prod1.getDetails()); // Produces expected output of "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
